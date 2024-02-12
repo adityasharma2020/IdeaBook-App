@@ -1,0 +1,46 @@
+main {
+	position: relative;
+}
+
+.mainContainer {
+	display: flex;
+	height: 100vh;
+	width: 100vw;
+}
+
+.leftContainer {
+	flex: 3;
+	background-color: red;
+	position: relative;
+}
+
+.rightContainer {
+	flex: 7;
+	background-color: yellow;
+}
+
+.addButton {
+	background-color: blue;
+	position: absolute;
+	bottom: 2rem;
+	right: 2rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 1rem;
+	padding: 1rem;
+	border-radius: 50%;
+	cursor: pointer;
+}
+
+.modalContainer {
+	position: absolute;
+	top: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: rgba(0, 0, 0, 0.355);
+	width: 100%;
+	height: 100%;
+	backdrop-filter: blur(10px);
+}

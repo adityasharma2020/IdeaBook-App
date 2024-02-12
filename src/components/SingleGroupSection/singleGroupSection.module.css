@@ -1,0 +1,9 @@
+.mainContainer {
+	display: flex;
+	justify-content: start;
+	border: 2px solid black;
+	align-items: center;
+	gap: 2rem;
+	background-color: rgba(33, 188, 38, 0.621);
+	cursor: pointer;
+}

@@ -1,0 +1,7 @@
+.colorContainer {
+	width: 1rem;
+	height: 1rem;
+	background-color: gray;
+	border-radius: 50%;
+	cursor: pointer;
+}
