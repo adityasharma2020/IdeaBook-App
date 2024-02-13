@@ -10,13 +10,13 @@ main {
 
 .leftContainer {
 	flex: 3;
-	background-color: red;
 	position: relative;
+	background-color: white;
 }
 
 .rightContainer {
 	flex: 7;
-	background-color: yellow;
+	background-color: #dae5f5;
 }
 
 .addButton {
@@ -30,6 +30,7 @@ main {
 	width: 1rem;
 	padding: 1rem;
 	border-radius: 50%;
+	color: white;
 	cursor: pointer;
 }
 
@@ -42,5 +43,5 @@ main {
 	background-color: rgba(0, 0, 0, 0.355);
 	width: 100%;
 	height: 100%;
-	backdrop-filter: blur(10px);
+	backdrop-filter: blur(8px);
 }

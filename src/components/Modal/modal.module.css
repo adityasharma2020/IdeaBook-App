@@ -1,4 +1,54 @@
 .modalContainer {
-	background-color: rgb(170, 78, 78);
-	
+	background-color: white;
+	padding: 1rem 2rem;
+	border-radius: 15px;
+}
+
+.form {
+	display: flex;
+	flex-direction: column;
+	justify-content: start;
+	align-items: start;
+	gap: 2rem;
+}
+
+.label {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 1rem;
+}
+
+.input {
+	width: 20rem;
+	border: 1px solid rgb(181, 179, 179);
+	padding: 0.4rem 0.5rem;
+	border-radius: 15px;
+	color: #292929;
+	outline: none;
+	font-size: 1rem;
+	background-color: white;
+}
+
+.colorOptions {
+	display: flex;
+	gap: 0.5rem;
+}
+
+.createButtonContainer {
+	text-align: end;
+	width: 100%;
+}
+
+.createButton {
+	padding: 0.3rem 2rem;
+	background-color: #001f8b;
+}
+
+/* media queries */
+
+@media screen and (max-width: 760px) {
+	.input {
+		width: 12rem;
+	}
 }

@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import styles from './dashboard.module.css';
 import ChatSection from '../../components/ChatSection/ChatSection';
 import DefaultSection from '../../components/DefaultSection/DefaultSection';
@@ -11,22 +11,67 @@ import { SelectedNoteGroupContext } from '../../context/selectedNoteGroupContext
 const Dashboard = () => {
 	const [notesModal, setNotesModal] = useState(false);
 	const allNotes = JSON.parse(localStorage.getItem('AllNotes')) || [];
-	const { selectedNoteGroup, setSelectedNoteGroup } = useContext(SelectedNoteGroupContext);
+	const [showRightContainer, setShowRightContainer] = useState(true);
+	const [showLeftContainer, setShowLeftContainer] = useState(true);
+	const [isSmallScreen, setIsSmallScreen] = useState(true);
+
+	const { selectedNoteGroup } = useContext(SelectedNoteGroupContext);
 	const handleClose = () => {
 		setNotesModal(!notesModal);
 	};
+
+	useEffect(() => {
+		const handleResize = () => {
+			if (window.innerWidth <= 760) {
+				setIsSmallScreen(true);
+				setShowLeftContainer(true);
+				setShowRightContainer(false);
+			} else {
+				setIsSmallScreen(false);
+				setShowLeftContainer(true);
+				setShowRightContainer(true);
+			}
+		};
+
+		window.addEventListener('resize', handleResize);
+		handleResize();
+
+		return () => {
+			window.removeEventListener('resize', handleResize);
+		};
+	}, []);
+
 	return (
 		<main>
 			<div className={styles.mainContainer}>
-				<div className={styles.leftContainer}>
-					<SideBar allNotes={allNotes} />
-					<div onClick={() => setNotesModal(true)} className={styles.addButton}>
-						<FaPlus />
+				{showLeftContainer && (
+					<div className={styles.leftContainer}>
+						<SideBar
+							allNotes={allNotes}
+							isSmallScreen={isSmallScreen}
+							setShowRightContainer={setShowRightContainer}
+							setShowLeftContainer={setShowLeftContainer}
+						/>
+						<div onClick={() => setNotesModal(true)} className={styles.addButton}>
+							<FaPlus />
+						</div>
 					</div>
-				</div>
-				<div className={styles.rightContainer}>
-					{selectedNoteGroup ? <ChatSection allNotes={allNotes} /> : <DefaultSection />}
-				</div>
+				)}
+
+				{showRightContainer && (
+					<div className={styles.rightContainer}>
+						{selectedNoteGroup ? (
+							<ChatSection
+								allNotes={allNotes}
+								isSmallScreen={isSmallScreen}
+								setShowRightContainer={setShowRightContainer}
+								setShowLeftContainer={setShowLeftContainer}
+							/>
+						) : (
+							<DefaultSection />
+						)}
+					</div>
+				)}
 			</div>
 
 			{notesModal && (

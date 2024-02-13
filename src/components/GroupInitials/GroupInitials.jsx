@@ -1,10 +1,14 @@
-import React from 'react';
-import useInitials from '../../utils/useInitials';
 
-const GroupInitials = ({ name }) => {
+import useInitials from '../../utils/useInitials';
+import styles from './groupInitials.module.css';
+const GroupInitials = ({ name, color }) => {
+
 	const initials = useInitials(name);
-	// console.log('initials', initials);
-	return <div>{initials}</div>;
+	return (
+		<div className={styles.initials} style={{ backgroundColor: color }}>
+			{initials}
+		</div>
+	);
 };
 
 export default GroupInitials;

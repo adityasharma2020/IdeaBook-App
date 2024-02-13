@@ -8,14 +8,14 @@ const NotesModal = ({ open, setOpen, onClose }) => {
 	const colorOptions = ['#B38BFA', '#FF79F2', '#43E6FC', '#F19576', '#0047FF', '#6691FF'];
 
 	const [selectedColor, setSelectedColor] = useState('#B38BFA');
-	const [groupName, setGroupName] = useState('New Group');
+	const [groupName, setGroupName] = useState('');
 	const newGroupId = uuid();
 
 	const newGroupDetails = {
 		id: newGroupId,
 		name: groupName,
 		color: selectedColor,
-		data: [],
+		chatData: [],
 	};
 
 	const handleSubmit = (event) => {
@@ -23,14 +23,11 @@ const NotesModal = ({ open, setOpen, onClose }) => {
 
 		// Retrieve existing data from local storage
 		const existingData = JSON.parse(localStorage.getItem('AllNotes')) || [];
-
-		// Append new group details to the existing data
 		existingData.push(newGroupDetails);
 
-		// // Store the updated data back into local storage
 		localStorage.setItem('AllNotes', JSON.stringify(existingData));
-
 		setOpen(false);
+
 		//Reset the Form values
 		setGroupName('New Group');
 		setSelectedColor('#B38BFA');
@@ -47,7 +44,7 @@ const NotesModal = ({ open, setOpen, onClose }) => {
 			document.addEventListener('mousedown', handleOutsideClick);
 		}
 
-		//remove the event listener when the modal is closed
+		//remove  event listener when the modal is closed
 		return () => {
 			document.removeEventListener('mousedown', handleOutsideClick);
 		};
@@ -59,10 +56,14 @@ const NotesModal = ({ open, setOpen, onClose }) => {
 					<div ref={modalRef} className={styles.modalContainer}>
 						<h3>Create New Group</h3>
 
-						<form onSubmit={handleSubmit}>
-							<label>
-								Group Name:
+						<form className={styles.form} onSubmit={handleSubmit}>
+							<label className={styles.label}>
+								Group Name
 								<input
+									className={styles.input}
+									required
+									autoFocus={true}
+									placeholder='Enter group name'
 									onChange={(e) => setGroupName(e.target.value)}
 									value={groupName}
 									type='text'
@@ -70,19 +71,24 @@ const NotesModal = ({ open, setOpen, onClose }) => {
 								/>
 							</label>
 
-							<label>
-								Choose Color:
-								{colorOptions.map((color, index) => {
-									return (
-										<ColorOption
-											setSelectedColor={setSelectedColor}
-											key={index}
-											color={color}
-										/>
-									);
-								})}
+							<label className={styles.label}>
+								Choose Color
+								<div className={styles.colorOptions}>
+									{colorOptions.map((color, index) => {
+										return (
+											<ColorOption
+												selectedColor={selectedColor}
+												setSelectedColor={setSelectedColor}
+												key={index}
+												color={color}
+											/>
+										);
+									})}
+								</div>
 							</label>
-							<button>create</button>
+							<div className={styles.createButtonContainer}>
+								<button className={styles.createButton}>create</button>
+							</div>
 						</form>
 					</div>
 				</div>
