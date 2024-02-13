@@ -11,21 +11,18 @@ import { SelectedNoteGroupContext } from '../../context/selectedNoteGroupContext
 const Dashboard = () => {
 	const [notesModal, setNotesModal] = useState(false);
 	const allNotes = JSON.parse(localStorage.getItem('AllNotes')) || [];
-	const [showRightContainer, setShowRightContainer] = useState(true);
+	const [showRightContainer, setShowRightContainer] = useState(false);
 	const [showLeftContainer, setShowLeftContainer] = useState(true);
-	const [isSmallScreen, setIsSmallScreen] = useState(true);
+	const [isSmallScreen, setIsSmallScreen] = useState(false);
 
 	const { selectedNoteGroup } = useContext(SelectedNoteGroupContext);
 	const handleClose = () => {
 		setNotesModal(!notesModal);
 	};
-
 	useEffect(() => {
 		const handleResize = () => {
 			if (window.innerWidth <= 760) {
 				setIsSmallScreen(true);
-				setShowLeftContainer(true);
-				setShowRightContainer(false);
 			} else {
 				setIsSmallScreen(false);
 				setShowLeftContainer(true);
