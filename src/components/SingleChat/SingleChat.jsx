@@ -1,15 +1,103 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './singleChat.module.css';
 import { GoDotFill } from 'react-icons/go';
-const SingleChat = ({ details }) => {
+import { GrEdit } from 'react-icons/gr';
+import { MdOutlineDeleteOutline } from 'react-icons/md';
+import { IoMdCopy } from 'react-icons/io';
+
+const SingleChat = ({
+	details,
+	handleNoteUpdate,
+	setUpdateNote,
+	updateNote,
+	handleNoteDeleted,
+}) => {
+	const [copyMessage, setCopyMessage] = useState('');
+
+	const [isEditing, setIsEditing] = useState(false);
+
+	const handleCopyButton = async () => {
+		try {
+			await navigator.clipboard.writeText(details.note);
+			setCopyMessage('Copied!');
+		} catch (error) {
+			setCopyMessage('Error copying');
+		}
+
+		// Clear the message after a short delay
+		setTimeout(() => {
+			setCopyMessage('');
+		}, 2000);
+	};
+
+	const handleEditButton = () => {
+		setUpdateNote(details.note);
+		setIsEditing(true);
+	};
+
+	const handleSaveButton = () => {
+		console.log(details.id, updateNote);
+		setIsEditing(false);
+		handleNoteUpdate(details.id, updateNote);
+	};
+
+	const handleDeleteButton = () => {
+		handleNoteDeleted(details.id);
+	};
+
+	const handleChangeNote = (event) => {
+		setUpdateNote(event.target.value);
+	};
+
 	return (
 		<>
 			<div className={styles.chatContainer}>
-				<p className={styles.note}>{details.note}</p>
-				<div className={styles.noteDetails}>
-					<p>{details.date}</p>
-					<GoDotFill />
-					<p>{details.time}</p>
+				{isEditing ? (
+					<textarea
+						rows={5}
+						required
+						className={styles.textarea}
+						type='textarea'
+						value={updateNote}
+						onChange={handleChangeNote}
+					/>
+				) : (
+					<p className={styles.note}>{details.note}</p>
+				)}
+
+				<div className={styles.actionContainer}>
+					<div className={styles.buttons}>
+						<div>
+							<span className={styles.copyMessage}>{copyMessage}</span>
+							<IoMdCopy
+								className={styles.copyButton}
+								title='Copy'
+								onClick={handleCopyButton}
+							/>
+						</div>
+						{isEditing ? (
+							<button className={styles.saveButton} onClick={handleSaveButton}>
+								Save
+							</button>
+						) : (
+							<GrEdit
+								className={styles.editButton}
+								title='Edit'
+								onClick={handleEditButton}
+							/>
+						)}
+						<MdOutlineDeleteOutline
+							className={styles.deleteButton}
+							title='Delete'
+							onClick={handleDeleteButton}
+						/>
+					</div>
+
+					<div className={styles.noteDetails}>
+						<p>{details.date}</p>
+						<GoDotFill />
+						<p>{details.time}</p>
+					</div>
 				</div>
 			</div>
 		</>

@@ -1,4 +1,4 @@
-import  { useContext } from 'react';
+import { useContext } from 'react';
 import styles from './singleGroupSection.module.css';
 import GroupInitials from '../GroupInitials/GroupInitials';
 import { SelectedNoteGroupContext } from '../../context/selectedNoteGroupContext';
@@ -18,10 +18,15 @@ const SingleGroupSection = ({
 		setSelectedNoteGroup(groupDetail);
 		localStorage.setItem('selectedGroupDetails', JSON.stringify(groupDetail));
 	};
+
 	return (
 		<div onClick={() => handleGroupSelected(groupDetail)} className={styles.mainContainer}>
 			<GroupInitials name={groupDetail.name} color={groupDetail.color} />
-			<p className={styles.name}>{groupDetail.name}</p>
+			<p className={styles.name}>
+				{groupDetail.name.length > 20
+					? groupDetail.name.slice(0, 20) + '...'
+					: groupDetail.name}
+			</p>
 		</div>
 	);
 };

@@ -11,6 +11,7 @@
 	top: 0;
 	background-color: #001f8b;
 	padding: 0 2rem;
+	margin-bottom: 1rem;
 	color: white;
 }
 
@@ -20,7 +21,7 @@
 }
 
 .chatContainer {
-	height: 70vh;
+	height: 67vh;
 	overflow-y: scroll;
 	display: flex;
 	flex-direction: column;
@@ -74,6 +75,7 @@
 	color: #292929;
 	outline: none;
 	font-size: 1rem;
+	font-family: 'roboto', 'arial';
 	background-color: white;
 	overflow-y: 'auto';
 }
