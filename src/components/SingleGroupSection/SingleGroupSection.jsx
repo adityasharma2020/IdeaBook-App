@@ -20,14 +20,21 @@ const SingleGroupSection = ({
 	};
 
 	return (
-		<div onClick={() => handleGroupSelected(groupDetail)} className={styles.mainContainer}>
-			<GroupInitials name={groupDetail.name} color={groupDetail.color} />
-			<p className={styles.name}>
-				{groupDetail.name.length > 20
-					? groupDetail.name.slice(0, 20) + '...'
-					: groupDetail.name}
-			</p>
-		</div>
+		<>
+			{groupDetail.name && (
+				<div
+					onClick={() => handleGroupSelected(groupDetail)}
+					className={styles.mainContainer}
+				>
+					<GroupInitials name={groupDetail.name} color={groupDetail.color} />
+					<p className={styles.name}>
+						{groupDetail.name.length > 20
+							? groupDetail.name.slice(0, 20) + '...'
+							: groupDetail.name}
+					</p>
+				</div>
+			)}
+		</>
 	);
 };
 

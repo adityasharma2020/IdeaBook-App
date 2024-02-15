@@ -1,0 +1,47 @@
+.modalContainer {
+	background-color: white;
+	padding: 2rem;
+	border-radius: 15px;
+}
+
+.createButtonContainer {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 1rem;
+	text-align: end;
+	width: 100%;
+}
+
+.heading {
+}
+
+.createButton {
+	padding: 0.3rem 2rem;
+	background-color: #ca2222;
+	color: white;
+	border-radius: 7px;
+	cursor: pointer;
+}
+
+.cancelButton {
+	padding: 0.3rem 2rem;
+	background-color: transparent;
+	color: black;
+	outline: none;
+	border: 2px solid #001f8b;
+	border-radius: 7px;
+	cursor: pointer;
+}
+
+/* media queries */
+
+@media screen and (max-width: 760px) {
+	.modalContainer {
+		padding: 1rem;
+	}
+
+	.heading {
+		font-size: 0.9rem;
+	}
+}

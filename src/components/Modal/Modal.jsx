@@ -3,7 +3,7 @@ import { v4 as uuid } from 'uuid';
 import styles from './modal.module.css';
 import ColorOption from '../ColorOption/ColorOption';
 
-const NotesModal = ({ open, setOpen, onClose }) => {
+const NotesModal = ({  open, setOpen, onClose }) => {
 	const modalRef = useRef();
 	const colorOptions = ['#B38BFA', '#FF79F2', '#43E6FC', '#F19576', '#0047FF', '#6691FF'];
 
@@ -22,14 +22,13 @@ const NotesModal = ({ open, setOpen, onClose }) => {
 		event.preventDefault();
 
 		// Retrieve existing data from local storage
-		const existingData = JSON.parse(localStorage.getItem('AllNotes')) || [];
-		existingData.push(newGroupDetails);
-
-		localStorage.setItem('AllNotes', JSON.stringify(existingData));
+		const Data = JSON.parse(localStorage.getItem('AllNotes')) || [];
+		Data.push(newGroupDetails);
+		localStorage.setItem('AllNotes', JSON.stringify(Data));
 		setOpen(false);
 
 		//Reset the Form values
-		setGroupName('New Group');
+		setGroupName('');
 		setSelectedColor('#B38BFA');
 	};
 
