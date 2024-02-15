@@ -52,11 +52,9 @@
 }
 
 .saveButton {
-	padding: 0.3rem 1rem;
-	color: white;
-	font-size: 0.8rem;
-	font-family: 'roboto', 'arial';
-	background-color: #001f8b;
+	font-size: 1.4rem;
+	color: Blue;
+	cursor: pointer;
 }
 .deleteButton {
 	font-size: 1.4rem;

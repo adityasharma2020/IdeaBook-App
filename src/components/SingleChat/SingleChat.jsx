@@ -4,6 +4,7 @@ import { GoDotFill } from 'react-icons/go';
 import { GrEdit } from 'react-icons/gr';
 import { MdOutlineDeleteOutline } from 'react-icons/md';
 import { IoMdCopy } from 'react-icons/io';
+import { VscSaveAs } from 'react-icons/vsc';
 
 const SingleChat = ({
 	details,
@@ -76,9 +77,11 @@ const SingleChat = ({
 							/>
 						</div>
 						{isEditing ? (
-							<button className={styles.saveButton} onClick={handleSaveButton}>
-								Save
-							</button>
+							<VscSaveAs
+								title='Update'
+								className={styles.saveButton}
+								onClick={handleSaveButton}
+							></VscSaveAs>
 						) : (
 							<GrEdit
 								className={styles.editButton}

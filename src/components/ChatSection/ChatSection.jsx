@@ -26,7 +26,7 @@ const ChatSection = ({ allNotes, isSmallScreen, setShowRightContainer, setShowLe
 
 		const { formattedDate, formattedTime } = chatCurrentTime();
 		const data = { id: newNoteId, date: formattedDate, time: formattedTime, note };
-
+		console.log("coming data:",data);
 		setChatData((prev) => [...prev, data]);
 		updateAllNotes(data);
 		updateSelectedNoteGroupDetails(data);
