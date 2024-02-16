@@ -14,15 +14,21 @@ const Dashboard = () => {
 	const [showRightContainer, setShowRightContainer] = useState(false);
 	const [showLeftContainer, setShowLeftContainer] = useState(true);
 	const [isSmallScreen, setIsSmallScreen] = useState(false);
-
+	const [isFocused, setIsFocused] = useState(false);
 	const { selectedNoteGroup } = useContext(SelectedNoteGroupContext);
 	const handleClose = () => {
 		setNotesModal(!notesModal);
 	};
 	useEffect(() => {
 		const handleResize = () => {
+			if (isFocused) {
+				console.log(isFocused);
+				return;
+			}
 			if (window.innerWidth <= 760) {
 				setIsSmallScreen(true);
+				setShowLeftContainer(true);
+				setShowRightContainer(false);
 			} else {
 				setIsSmallScreen(false);
 				setShowLeftContainer(true);
@@ -59,6 +65,7 @@ const Dashboard = () => {
 					<div className={styles.rightContainer}>
 						{selectedNoteGroup ? (
 							<ChatSection
+								setIsFocused={setIsFocused}
 								allNotes={allNotes}
 								isSmallScreen={isSmallScreen}
 								setShowRightContainer={setShowRightContainer}

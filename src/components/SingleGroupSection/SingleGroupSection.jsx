@@ -12,6 +12,7 @@ const SingleGroupSection = ({
 	const { setSelectedNoteGroup } = useContext(SelectedNoteGroupContext);
 	const handleGroupSelected = (groupDetail) => {
 		if (isSmallScreen) {
+			console.log('inside sngile group selection');
 			setShowRightContainer((prev) => !prev);
 			setShowLeftContainer((prev) => !prev);
 		}

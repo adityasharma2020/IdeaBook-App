@@ -37,7 +37,7 @@ const SingleChat = ({
 	};
 
 	const handleSaveButton = () => {
-		console.log(details.id, updateNote);
+		
 		setIsEditing(false);
 		handleNoteUpdate(details.id, updateNote);
 	};

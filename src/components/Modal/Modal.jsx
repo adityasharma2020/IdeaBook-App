@@ -3,11 +3,12 @@ import { v4 as uuid } from 'uuid';
 import styles from './modal.module.css';
 import ColorOption from '../ColorOption/ColorOption';
 
-const NotesModal = ({  open, setOpen, onClose }) => {
+const NotesModal = ({ open, setOpen, onClose }) => {
 	const modalRef = useRef();
 	const colorOptions = ['#B38BFA', '#FF79F2', '#43E6FC', '#F19576', '#0047FF', '#6691FF'];
 
 	const [selectedColor, setSelectedColor] = useState('#B38BFA');
+	const [errorMessage, setErrorMessage] = useState('');
 	const [groupName, setGroupName] = useState('');
 	const newGroupId = uuid();
 
@@ -22,14 +23,19 @@ const NotesModal = ({  open, setOpen, onClose }) => {
 		event.preventDefault();
 
 		// Retrieve existing data from local storage
-		const Data = JSON.parse(localStorage.getItem('AllNotes')) || [];
-		Data.push(newGroupDetails);
-		localStorage.setItem('AllNotes', JSON.stringify(Data));
-		setOpen(false);
+		const objectsArray = JSON.parse(localStorage.getItem('AllNotes')) || [];
+		const nameExists = objectsArray.find((obj) => obj.name === groupName);
+		if (!nameExists) {
+			objectsArray.push(newGroupDetails);
+			localStorage.setItem('AllNotes', JSON.stringify(objectsArray));
+			setOpen(false);
 
-		//Reset the Form values
-		setGroupName('');
-		setSelectedColor('#B38BFA');
+			//Reset the Form values
+			setGroupName('');
+			setSelectedColor('#B38BFA');
+		} else {
+			setErrorMessage('Name already Exists.');
+		}
 	};
 
 	useEffect(() => {
@@ -38,11 +44,9 @@ const NotesModal = ({  open, setOpen, onClose }) => {
 				onClose();
 			}
 		};
-
 		if (open) {
 			document.addEventListener('mousedown', handleOutsideClick);
 		}
-
 		//remove  event listener when the modal is closed
 		return () => {
 			document.removeEventListener('mousedown', handleOutsideClick);
@@ -56,19 +60,22 @@ const NotesModal = ({  open, setOpen, onClose }) => {
 						<h3>Create New Group</h3>
 
 						<form className={styles.form} onSubmit={handleSubmit}>
-							<label className={styles.label}>
-								Group Name
-								<input
-									className={styles.input}
-									required
-									autoFocus={true}
-									placeholder='Enter group name'
-									onChange={(e) => setGroupName(e.target.value)}
-									value={groupName}
-									type='text'
-									name='username'
-								/>
-							</label>
+							<div className={styles.nameContainer}>
+								<label className={styles.label}>
+									Group Name
+									<input
+										className={styles.input}
+										required
+										autoFocus={true}
+										placeholder='Enter group name'
+										onChange={(e) => setGroupName(e.target.value)}
+										value={groupName}
+										type='text'
+										name='username'
+									/>
+								</label>
+								<p className={styles.errorMessage}>{errorMessage}</p>
+							</div>
 
 							<label className={styles.label}>
 								Choose Color

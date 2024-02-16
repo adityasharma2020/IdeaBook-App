@@ -17,12 +17,6 @@ const SideBar = ({ allNotes, setShowRightContainer, setShowLeftContainer, isSmal
 		setIsPopup(!isPopup);
 	};
 
-	// const handleNoteDelete = () => {
-	// 	const updateAllNotes = allNotes.filter((obj) => obj.id !== selectedNoteGroup.id);
-	// 	console.log('updateAllNotes', updateAllNotes);
-	// 	localStorage.setItem('AllNotes', JSON.stringify(updateAllNotes));
-	// };
-
 	const handleDeletePopup = () => {
 		setIsPopup(true);
 	};

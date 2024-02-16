@@ -8,7 +8,13 @@ import { chatCurrentTime } from '../../utils/ChatCurrentTime';
 import { IoArrowBackOutline } from 'react-icons/io5';
 import { v4 as uuid } from 'uuid';
 
-const ChatSection = ({ allNotes, isSmallScreen, setShowRightContainer, setShowLeftContainer }) => {
+const ChatSection = ({
+	allNotes,
+	isSmallScreen,
+	setShowRightContainer,
+	setShowLeftContainer,
+	setIsFocused,
+}) => {
 	const [note, setNote] = useState('');
 	const [updateNote, setUpdateNote] = useState('');
 	const chatContainerRef = useRef();
@@ -26,7 +32,7 @@ const ChatSection = ({ allNotes, isSmallScreen, setShowRightContainer, setShowLe
 
 		const { formattedDate, formattedTime } = chatCurrentTime();
 		const data = { id: newNoteId, date: formattedDate, time: formattedTime, note };
-		console.log("coming data:",data);
+
 		setChatData((prev) => [...prev, data]);
 		updateAllNotes(data);
 		updateSelectedNoteGroupDetails(data);
@@ -69,7 +75,6 @@ const ChatSection = ({ allNotes, isSmallScreen, setShowRightContainer, setShowLe
 			return obj;
 		});
 
-		console.log('updatedChatData', updatedChatData);
 		setChatData(updatedChatData);
 		updatelocalStorageAllNotes(updatedChatData);
 		updatelocalStorageSelectedGroupDetail(updatedChatData);
@@ -101,7 +106,6 @@ const ChatSection = ({ allNotes, isSmallScreen, setShowRightContainer, setShowLe
 
 		const updatedChatData = chatData.filter((obj) => obj.id !== id);
 
-		console.log('updatedChatData', updatedChatData);
 		setChatData(updatedChatData);
 		updatelocalStorageAllNotes(updatedChatData);
 		updatelocalStorageSelectedGroupDetail(updatedChatData);
@@ -169,6 +173,8 @@ const ChatSection = ({ allNotes, isSmallScreen, setShowRightContainer, setShowLe
 							className={styles.textarea}
 							type='textarea'
 							value={note}
+							onFocus={() => setIsFocused(true)}
+							// onBlur={() => setIsFocused(false)}
 							placeholder='write your note here, and press SHIFT + ENTER to add note ...'
 							onChange={(event) => setNote(event.target.value)}
 						/>
