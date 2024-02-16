@@ -13,15 +13,17 @@ const ChatSection = ({
 	isSmallScreen,
 	setShowRightContainer,
 	setShowLeftContainer,
-	setIsFocused,
+	
 }) => {
 	const [note, setNote] = useState('');
 	const [updateNote, setUpdateNote] = useState('');
 	const chatContainerRef = useRef();
+	const inputRef = useRef();
 	const { selectedNoteGroup, setSelectedNoteGroup } = useContext(SelectedNoteGroupContext);
 	const selectedNoteGroupId = selectedNoteGroup.id;
 	const [chatData, setChatData] = useState(selectedNoteGroup.chatData || []);
 	const newNoteId = uuid();
+
 
 	//  New note added handler
 	const handleSubmit = (e) => {
@@ -163,7 +165,7 @@ const ChatSection = ({
 					);
 				})}
 			</div>
-			<div className={styles.formContainer}>
+			<div className={styles.formContainer} ref={inputRef}>
 				<form className={styles.form} onSubmit={handleSubmit}>
 					<div className={styles.inputContainer}>
 						<textarea
@@ -173,8 +175,6 @@ const ChatSection = ({
 							className={styles.textarea}
 							type='textarea'
 							value={note}
-							onFocus={() => setIsFocused(true)}
-							// onBlur={() => setIsFocused(false)}
 							placeholder='write your note here, and press SHIFT + ENTER to add note ...'
 							onChange={(event) => setNote(event.target.value)}
 						/>
